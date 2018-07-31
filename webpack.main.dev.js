@@ -1,13 +1,11 @@
 const merge = require('webpack-merge')
 const base = require('./webpack.base.main')
+const devBase = require('./webpack.dev')('webpack-main', process.MESSAGE_PORT || 9527)
 const path = require('path')
-const {ProgressPlugin} = require('webpack')
-const ProgressHook = new ProgressPlugin((p,msg)=>{
-  console.log(p,msg)
-})
 
 module.exports = merge(
   base,
+  devBase,
   {
     devtool: 'cheap-eval-source-map',
     watch:true,
@@ -15,9 +13,6 @@ module.exports = merge(
       ignored:[
         'node_modules',
       ]
-    },
-    plugins:[
-      ProgressHook
-    ]
+    }
   }
 )

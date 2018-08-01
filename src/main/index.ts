@@ -1,8 +1,9 @@
 console.log('Hello,electron...')
 import {resolve} from 'path'
 import { app, session, BrowserWindow } from 'electron'
+import setup from './dev'
+setup()
 app.on('ready',()=>{
-  
   const main = new BrowserWindow({
     width: 800,
     height: 600

@@ -25,19 +25,31 @@ module.exports = function createDevConfig(role,port) {
   client.connect(
     `ws://127.0.0.1:${port}`
   )
+  let isFirstTime = true
   const ProgressHook = new ProgressPlugin((p, msg) => {
-    console.log(p, msg)
-    if(p===1) {
-      conn.sendMsg({
-        to:`electron-${role}`,
-        body:{
-          type:'building',
-          status:'done'
-        }
-      })
+    console.log(p)
+    if(p===1 && conn) {
+      if(isFirstTime) {
+        conn.sendMsg({
+          to:`start-up`,
+          body:{
+            who:role
+          }
+        })
+        isFirstTime = false
+      } else {
+        conn.sendMsg({
+          to: `electron-${role}`,
+          body: {
+            type: 'building',
+            status: 'done'
+          }
+        })
+      }
     }
   })
   return {
+    watch:true,
     plugins:[
       ProgressHook
     ]

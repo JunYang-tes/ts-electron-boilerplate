@@ -27,7 +27,6 @@ module.exports = function createDevConfig(role,port) {
   )
   let isFirstTime = true
   const ProgressHook = new ProgressPlugin((p, msg) => {
-    console.log(p)
     if(p===1 && conn) {
       if(isFirstTime) {
         conn.sendMsg({

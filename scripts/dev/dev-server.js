@@ -40,7 +40,7 @@ module.exports = function start(port) {
               console.log(`${to} is not connected`)
             }
           } else {
-            console.log(`Unreachable message to ${to}: ${body}`)
+            console.log(`Unreachable message to ${to}: `,body)
           }
           break
         default:

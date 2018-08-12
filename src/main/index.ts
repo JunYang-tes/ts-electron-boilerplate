@@ -1,14 +1,13 @@
-import {resolve} from 'path'
-import { app, session, BrowserWindow } from 'electron'
+import { app, BrowserWindow } from 'electron'
+import { resolve } from 'path'
 
-console.log('Hello,electron...')
-app.on('ready',()=>{
+app.on('ready', () => {
   const main = new BrowserWindow({
+    height: 600,
     width: 800,
-    height: 600
   })
 
-  main.loadFile(resolve(__dirname,'index.html'))
+  main.loadFile(resolve(__dirname, 'index.html'))
   main.once('ready-to-show', () => {
     main.show()
   })

@@ -20,7 +20,6 @@ module.exports = function start(port) {
       const data = JSON.parse(
         msg.utf8Data
       )
-      console.log('==========',data)
       switch (data.type) {
         case 'login':
           if (connections[data.name]) {

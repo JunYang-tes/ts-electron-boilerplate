@@ -19,13 +19,11 @@ function onConnect(conn) {
     const data= JSON.parse(msg.utf8Data || '{}')
     console.log(data)
     if(data.type==='building' && data.status === 'done') {
-      console.log('relaunch')
       process.kill(cp.pid)
       cp = run()
     }
   })
   conn.on('close',()=>{
-    console.log("===== close")
   })
 }
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "./dist/main.js",
   "scripts": {
-    "pack":"node scripts/build",
+    "pkg":"node scripts/build",
     "dev": "cross-env NODE_ENV=development node ./scripts/dev/index.js",
     "build":"yarn build:render:prod yarn build:main:prod",
     "build:render:prod":"cross-env NODE_ENV=production webpack-cli --config ./webpack.render.prod.js",

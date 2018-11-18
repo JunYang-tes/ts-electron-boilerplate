@@ -1,12 +1,18 @@
 const merge = require('webpack-merge')
 const base = require('./webpack.base.render')
-const devBase = require('./webpack.dev')('webpack-render', process.env.MESSAGE_PORT || 9527)
+const webpack = require('webpack')
 
 module.exports = merge(
   base,
-  devBase,
   {
     mode:'development',
     devtool: 'cheap-module-eval-source-map',
+    devServer: {
+      contentBase: './dist',
+      hot: true
+    },
+    plugins:[
+      new webpack.HotModuleReplacementPlugin()
+    ],
   }
 )

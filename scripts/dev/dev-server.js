@@ -1,16 +1,26 @@
+const webpackDevServer = require('webpack-dev-server');
 const WebSocketServer = require('websocket').server
+const webpackCfg = require('../../webpack.render.dev')
+const webpack = require('webpack')
+const options = {
+  contentBase: './dist',
+  hot: true,
+  host: 'localhost'
+};
+webpackDevServer.addDevServerEntrypoints(webpackCfg, options);
 
 module.exports = function start(port) {
-  const http = require('http')
-  const server = http.createServer((req, res) => {
-    console.log(`${req.url}`)
-  })
+  const compiler = webpack(webpackCfg)
+  const server = new webpackDevServer(
+    compiler,
+    options
+  )
   const wsServer = new WebSocketServer({
-    httpServer: server
+    httpServer: server.listeningApp
   })
   const connections = {} 
   server.listen(port,()=>{
-    console.log(`Messaging server running on ${port}`)
+    console.log(`Dev server running on ${port}`)
   })
   wsServer.on('request', req => {
     const conn = req.accept(null, req.origin)

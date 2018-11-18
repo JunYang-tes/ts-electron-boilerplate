@@ -9,13 +9,15 @@ packager({
   platform: os.platform(),
   out:"pkg",
   ignore(path) {
+    if((devDependencies.some(d=>path.startsWith(d)))){
+      return true
+    }
     return !(
-      path === "/node_modules" ||
+      path.startsWith("/node_modules") ||
       path === "" ||
       path.startsWith('/dist') ||
       path === "/package.json"
-    ) ||
-    (devDependencies.some(d=>path.startsWith(d)))
+    ) 
   },
   overwrite: true
 })

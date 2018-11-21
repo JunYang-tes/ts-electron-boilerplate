@@ -1,10 +1,12 @@
 import {BrowserWindow} from 'electron'
-import {exists} from 'fs'
+import * as fs from 'fs'
 import {homedir, platform} from 'os'
+import {maxBy, prop, reduce} from 'ramda'
 import {promisify} from 'util'
 import {log} from 'utils'
 import enabled from './enabled'
-const isExists = promisify(exists)
+const stat = promisify(fs.stat)
+const readdir = promisify(fs.readdir)
 
 const dirs: {
   [name: string]: string[],
@@ -24,8 +26,20 @@ async function getPath(id: string) {
   const p = platform()
   if (p in dirs) {
     for (const path of dirs[p]) {
-      if (await isExists(`${path}/${id}`)) {
-        return `${path}/${id}`
+      if ((await stat(`${path}/${id}`)).isDirectory) {
+        const versions = (await readdir(`${path}/${id}`))
+        .map((v) => [v, v
+          .replace('_', '.')
+          .split('.')
+          .reduce((acc, next) => (acc * 10 + (+next || 0)) , 0)] as [string, number])
+        if (versions.length) {
+          const newest = reduce(
+            maxBy<[string, number]>(prop('1')),
+            versions[0],
+            versions)
+          return `${path}/${id}/${newest[0]}`
+        }
+        return null
       }
     }
   }
@@ -34,17 +48,15 @@ async function getPath(id: string) {
 
 export default async () => {
   for (const ex of enabled) {
-    try {
       const path = await getPath(ex.id)
       if (path) {
-        BrowserWindow.addDevToolsExtension(
-          path,
+        log(`Install from ${path}`,
+          BrowserWindow.addDevToolsExtension(
+            path,
+          ),
         )
       } else {
         log(`Extension not found: ${ex.name} \n`)
       }
-    } catch (e) {
-      log('Failed to load extension:', e)
-    }
   }
 }

@@ -8,7 +8,13 @@ interface IDevMessage {
 export const notUsed = () => "hello"
 
 export default () => {
-  const sc = new client()
+  // webpack is a devDependency, will not be packed
+  // when pack it as production. if import it directly
+  // from the top scope, that require will throw exception
+  // This function will not execute in production mode,
+  // so let's require it here.
+  const Client: typeof client = require('websocket').client
+  const sc = new Client()
   sc.connect(`ws://127.0.0.1:${getDevPort()}`)
   sc.on('connect', (conn) => {
     conn.sendUTF(JSON.stringify({

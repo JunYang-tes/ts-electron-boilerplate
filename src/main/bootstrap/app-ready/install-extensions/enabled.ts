@@ -1,6 +1,6 @@
 export default [
   {
     id: 'fmkadmapgofadopljbjfkapdkoienihi',
-    name: 'react developer',
+    name: 'react devtool',
   },
 ]

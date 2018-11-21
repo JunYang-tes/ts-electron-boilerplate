@@ -34,13 +34,17 @@ async function getPath(id: string) {
 
 export default async () => {
   for (const ex of enabled) {
-    const path = await getPath(ex.id)
-    if (path) {
-      BrowserWindow.addDevToolsExtension(
-        path,
-      )
-    } else {
-      log(`Failed to load extension: ${ex.name} \n`)
+    try {
+      const path = await getPath(ex.id)
+      if (path) {
+        BrowserWindow.addDevToolsExtension(
+          path,
+        )
+      } else {
+        log(`Extension not found: ${ex.name} \n`)
+      }
+    } catch (e) {
+      log('Failed to load extension:', e)
     }
   }
 }

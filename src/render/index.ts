@@ -1,1 +1,2 @@
-alert('Hello,electron')
+import {log} from 'utils'
+log('Hello,electron')

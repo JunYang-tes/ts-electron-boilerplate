@@ -11,7 +11,7 @@
     "build:main:prod": "cross-env NODE_ENV=production webpack-cli --config ./webpack.main.prod.js",
     "build:main:dev": "cross-env NODE_ENV=development webpack-cli --config ./webpack.main.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run-dev": "cross-env NODE_ENV=development node ./scripts/dev/run-electron.js",
+    "run-dev": "NODE_ENV=development npx electron ./dist/main.js",
     "precommit": "lint-staged"
   },
   "author": "",
@@ -28,6 +28,7 @@
     "ts-loader": "^4.4.2",
     "tslint": "^5.11.0",
     "typescript": "^3.1.6",
+    "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.10",

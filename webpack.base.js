@@ -1,4 +1,5 @@
 const path = require('path')
+
 module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist')
@@ -16,5 +17,8 @@ module.exports = {
     rules: [
       { test: /\.ts/, use: 'ts-loader' }
     ]
+  },
+  optimization: {
+    usedExports: true,
   }
 }

@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = merge(
   base,
   {
-    entry: path.resolve(__dirname,'src/render/index.tsx'),
+    entry: path.resolve(__dirname,'src/render/index.ts'),
     target:'electron-renderer',
     output: {
       filename:'render.js'

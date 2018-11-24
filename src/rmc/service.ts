@@ -1,5 +1,4 @@
-import {safeDump, safeLoad} from 'js-yaml'
-import {IChannel, IRMCCall, IRMCResult} from 'rmc/types'
+import {IChannel, IRMCResult} from 'rmc/types'
 export default class Services {
   private serices: {
     [id: string]: {

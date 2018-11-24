@@ -1,7 +1,10 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow} from 'electron'
+import 'rmc/ipc/main'
+import {log} from 'utils'
 import onReady from './bootstrap/app-ready'
 
 app.on('ready', () => {
+  log('welcome')
   const main = new BrowserWindow({
     height: 600,
     width: 800,

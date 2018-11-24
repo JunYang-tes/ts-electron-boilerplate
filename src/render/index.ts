@@ -1,2 +1,1 @@
-import {log} from 'utils'
-log('Hello,electron')
+import 'rmc/ipc/render'

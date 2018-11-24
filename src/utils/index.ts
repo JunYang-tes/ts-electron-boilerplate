@@ -1,6 +1,15 @@
+import * as electron from 'electron'
+import {proxy2Render} from 'rmc/ipc'
+const renderConsole = proxy2Render<{
+  log(...msg: any[]): any,
+}>('console')
 export const log = (...msg: any[]) => {
-  // tslint:disable-next-line
-  console.log(...msg)
+  if (isMainProcess) {
+    renderConsole.log('[main]', ...msg)
+  } else {
+    // tslint:disable-next-line
+    console.log(...msg)
+  }
 }
-
+export const isMainProcess =  electron.ipcRenderer == null
 export const getDevPort = () => +(process.env.DEV_PORT || 9527)

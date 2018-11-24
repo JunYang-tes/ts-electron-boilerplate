@@ -17,8 +17,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/websocket": "^0.0.39",
     "@types/ramda": "^0.25.42",
+    "@types/websocket": "^0.0.39",
     "cross-env": "^5.2.0",
     "electron": "^2.0.5",
     "electron-packager": "^12.2.0",

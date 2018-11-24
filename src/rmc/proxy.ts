@@ -1,5 +1,4 @@
-import {safeDump, safeLoad} from 'js-yaml'
-import {IChannel, IRMCCall, IRMCResult} from 'rmc/types'
+import {IChannel} from 'rmc/types'
 
 export interface ICallerCtor {
   new (serviceId: string, channel: IChannel): ICaller

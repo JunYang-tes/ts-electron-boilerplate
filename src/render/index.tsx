@@ -1,5 +1,6 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
+import 'rmc/ipc/render'
 import App from './app'
 
 if (process.env.NODE_ENV === 'development') {

@@ -1,8 +1,6 @@
 import * as electron from 'electron'
 import {proxy2Render} from 'rmc/ipc'
-const renderConsole = proxy2Render<{
-  log(...msg: any[]): any,
-}>('console')
+const renderConsole = proxy2Render<Console>('console')
 export const log = (...msg: any[]) => {
   if (isMainProcess) {
     renderConsole.log('[main]', ...msg)

@@ -1,4 +1,5 @@
 import {IChannel} from 'rmc/types'
+import {RPCProxy, WithFunctions} from 'utils/types'
 
 export interface ICallerCtor {
   new (serviceId: string, channel: IChannel): ICaller
@@ -26,7 +27,7 @@ export class Caller implements ICaller {
 }
 
 export const proxy = (callerCtor: ICallerCtor, channel: IChannel) => {
-  function createCaller<T>(serviceId: string): T {
+  function createCaller<T extends WithFunctions>(serviceId: string): RPCProxy<T> {
     const caller = new callerCtor(serviceId, channel)
     const proxiedFns = new Map()
     const p = new Proxy(caller, {
